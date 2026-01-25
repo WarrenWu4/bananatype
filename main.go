@@ -124,8 +124,7 @@ func main() {
 		wordPath = "/usr/share/bananatype/common-words.txt"
 		settingsPath = os.Getenv("HOME")+"/.local/state/bananatype/settings.json"
 	}
-	// TODO: test to make sure settings isn't being overriden
-	os.Create(settingsPath)
+	os.OpenFile(settingsPath, os.O_APPEND|os.O_CREATE, 0644)
 	// run this function to initialize important shit
 	initialModel := setup()
 	p := tea.NewProgram(initialModel, tea.WithAltScreen())
