@@ -8,7 +8,16 @@ Dates are in the form: **mm-dd-yyyy**
 
 ---
 
-## [Unreleased]
+## [0.0.1] - 01-26-2026
+
+### Added
+- Basic typer typing view
+- Settings view with time adjustment
+- Analytics screen with WPM & accuracy metrics
+- Build files, readmes, and changelog
 
 ---
+
+[0.0.1]: https://github.com/WarrenWu4/bananas/releases/tag/v0.0.1
+
 
