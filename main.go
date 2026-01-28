@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	Build = "dev"
-	wordPath = "./resources/common-words.txt"
+	Build        = "dev"
+	wordPath     = "./resources/common-words.txt"
 	settingsPath = "./resources/settings.json"
 )
 
@@ -120,9 +120,9 @@ func setup() MainModel {
 }
 
 func main() {
-	if (Build == "prod") {
+	if Build == "prod" {
 		wordPath = "/usr/share/bananatype/common-words.txt"
-		settingsPath = os.Getenv("HOME")+"/.local/state/bananatype/settings.json"
+		settingsPath = os.Getenv("HOME") + "/.local/state/bananatype/settings.json"
 	}
 	os.OpenFile(settingsPath, os.O_APPEND|os.O_CREATE, 0644)
 	// run this function to initialize important shit
