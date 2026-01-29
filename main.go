@@ -1,6 +1,7 @@
 package main
 
 import (
+	logger "bananas/pkg/logger"
 	analysis "bananas/pkg/analysis"
 	settings "bananas/pkg/settings"
 	timer "bananas/pkg/timer"
@@ -123,6 +124,7 @@ func main() {
 	if Build == "prod" {
 		wordPath = "/usr/share/bananatype/common-words.txt"
 		settingsPath = os.Getenv("HOME") + "/.local/state/bananatype/settings.json"
+		logger.InitLogger(os.Getenv("HOME") + "/.local/state/banantype/log.txt")
 	}
 	os.OpenFile(settingsPath, os.O_APPEND|os.O_CREATE, 0644)
 	// run this function to initialize important shit
