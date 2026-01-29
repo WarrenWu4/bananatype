@@ -1,8 +1,8 @@
 package main
 
 import (
-	logger "bananas/pkg/logger"
 	analysis "bananas/pkg/analysis"
+	logger "bananas/pkg/logger"
 	settings "bananas/pkg/settings"
 	timer "bananas/pkg/timer"
 	typer "bananas/pkg/typer"
