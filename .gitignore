@@ -3,3 +3,4 @@ user_settings.json
 // build artifacts
 build/
 bananas
+app.log

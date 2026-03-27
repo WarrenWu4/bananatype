@@ -8,6 +8,37 @@ Dates are in the form: **mm-dd-yyyy**
 
 ---
 
+## [Unreleased] - 03-26-2026
+
+### Added
+- Default 10MB file size limit for logger with automatic rotation
+
+---
+
+## [0.0.4] - 01-29-2026
+
+### Fixed
+- Temporary fix for resource path in different environments
+
+---
+
+## [0.0.3] - 01-29-2026
+
+### Refactored
+- Updated logging mechanism
+
+---
+
+## [0.0.2] - 01-28-2026
+
+### Added
+- Basic logger
+### Fixed
+- Resource path on production
+- Moved pkgbuild to separate directory
+
+---
+
 ## [0.0.1] - 01-26-2026
 
 ### Added
@@ -18,6 +49,9 @@ Dates are in the form: **mm-dd-yyyy**
 
 ---
 
+[0.0.4]: https://github.com/WarrenWu4/bananas/releases/tag/v0.0.4
+[0.0.3]: https://github.com/WarrenWu4/bananas/releases/tag/v0.0.3
+[0.0.2]: https://github.com/WarrenWu4/bananas/releases/tag/v0.0.2
 [0.0.1]: https://github.com/WarrenWu4/bananas/releases/tag/v0.0.1
 
 
