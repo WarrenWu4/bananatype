@@ -72,7 +72,7 @@ func (m SettingsModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m SettingsModel) View() string {
-    output := colors.Yellow.Render("Settings Page") + "\n"
+    output := colors.Yellow.Render("Settings") + "\n"
     if m.options[m.optionIdx] == "timer" {
         output += colors.White.Render("timer: ")
         for timeIdx, times := range m.times {
