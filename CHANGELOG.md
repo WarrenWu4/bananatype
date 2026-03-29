@@ -19,6 +19,8 @@ Dates are in the form: **mm-dd-yyyy**
 
 ### Fixed
 - Temporary fix for resource path in different environments
+- Removed random "." in word bank
+- Fixed duplicate consecutive words during line generation
 
 ---
 
