@@ -81,9 +81,14 @@ func createLine() ([]string, []string, []int) {
 	var colorResult []string
 	var sizeResult []int
 	currChars := 0
+	prevIndex := -1
 	// while all chars less than MAXCHARPERLINE
 	for currChars < MAXCHARPERLINE {
 		randomIndex := rand.Intn(len(COMMONWORDS))
+		for (randomIndex == prevIndex) {
+			randomIndex = rand.Intn(len(COMMONWORDS))
+		}
+		prevIndex = randomIndex
 		if currChars+len(COMMONWORDS[randomIndex]) <= MAXCHARPERLINE {
 			result = append(result, COMMONWORDS[randomIndex])
 			colorResult = append(colorResult, strings.Repeat("g", len(COMMONWORDS[randomIndex])))
