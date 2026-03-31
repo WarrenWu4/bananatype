@@ -5,9 +5,11 @@ import (
 	logger "bananas/pkg/logger"
 	"bufio"
 	"embed"
-	tea "github.com/charmbracelet/bubbletea"
+	"math"
 	"math/rand"
 	"strings"
+
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 //go:embed resources/word_bank.txt
@@ -23,6 +25,7 @@ const MAXLINES = 3
 var MAXCHARPERLINE = 60
 
 var COMMONWORDS = []string{}
+var WORD_BANK_MAP = map[int][]string{}
 
 type TyperModel struct {
 	// text related parameters
@@ -52,7 +55,11 @@ func loadWordsFromFile() {
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		COMMONWORDS = append(COMMONWORDS, scanner.Text())
+		word := scanner.Text()
+		if len(word) > 0 {
+			WORD_BANK_MAP[len(word)] = append(WORD_BANK_MAP[len(word)], word)
+		}
+		COMMONWORDS = append(COMMONWORDS, word)
 	}
 }
 
@@ -88,20 +95,26 @@ func createLine() ([]string, []string, []int) {
 	var colorResult []string
 	var sizeResult []int
 	currChars := 0
-	prevIndex := -1
+	prevWord := ""
 	// while all chars less than MAXCHARPERLINE
 	for currChars < MAXCHARPERLINE {
-		randomIndex := rand.Intn(len(COMMONWORDS))
-		for randomIndex == prevIndex {
-			randomIndex = rand.Intn(len(COMMONWORDS))
+		// 1. Get length from Normal Distribution (Mean 5, StdDev 2.5)
+		length := int(math.Round(rand.NormFloat64()*1.5 + 5))
+		// 2. Clamp to [1, 14] which is the range for the current word bank
+		length = min(14, max(length, 1))
+		// 3. Select word from bank
+		words := WORD_BANK_MAP[length]
+		selectedWord := words[rand.Intn(len(words))]
+		for selectedWord == prevWord && len(words) > 1 {
+			selectedWord = words[rand.Intn(len(words))]
 		}
-		prevIndex = randomIndex
-		if currChars+len(COMMONWORDS[randomIndex]) <= MAXCHARPERLINE {
-			result = append(result, COMMONWORDS[randomIndex])
-			colorResult = append(colorResult, strings.Repeat("g", len(COMMONWORDS[randomIndex])))
-			sizeResult = append(sizeResult, len(COMMONWORDS[randomIndex]))
+		prevWord = selectedWord
+		if currChars+len(selectedWord) <= MAXCHARPERLINE {
+			result = append(result, selectedWord)
+			colorResult = append(colorResult, strings.Repeat("g", len(selectedWord)))
+			sizeResult = append(sizeResult, len(selectedWord))
 		}
-		currChars += 1 + len(COMMONWORDS[randomIndex])
+		currChars += 1 + len(selectedWord)
 	}
 	return result, colorResult, sizeResult
 }

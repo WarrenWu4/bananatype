@@ -8,10 +8,21 @@ Dates are in the form: **mm-dd-yyyy**
 
 ---
 
-## [Unreleased] - 03-26-2026
+## [Unreleased]
 
 ### Added
 - Default 10MB file size limit for logger with automatic rotation
+
+### Changes 
+- Settings page renamed to "settings"
+- Expanded word bank to 4000+ words 
+- Changed word randomizer from uniform distribution to normal distribution for more realistic word length variety
+- Embedded word data to remove external file dependencies and for easier distribution
+
+### Fixed
+- Prevented duplicate consecutive words from being generated
+- Cleaned up word bank data (removed random periods)
+
 
 ---
 
@@ -35,6 +46,7 @@ Dates are in the form: **mm-dd-yyyy**
 
 ### Added
 - Basic logger
+
 ### Fixed
 - Resource path on production
 - Moved pkgbuild to separate directory
