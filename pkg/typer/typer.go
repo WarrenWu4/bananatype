@@ -3,13 +3,15 @@ package typer
 import (
 	colors "bananas/pkg/colors"
 	logger "bananas/pkg/logger"
-	resourcepath "bananas/pkg/resourcepath"
 	"bufio"
+	"embed"
 	tea "github.com/charmbracelet/bubbletea"
 	"math/rand"
-	"os"
 	"strings"
 )
+
+//go:embed resources/word_bank.txt
+var wordBankFS embed.FS
 
 const TYPER_INSTRUCTIONS = "CTRL+C to quit program\nESC to open settings"
 
@@ -38,10 +40,15 @@ type TyperModel struct {
 }
 
 func loadWordsFromFile() {
-	logger.Log(logger.INFO, "Loading words from file: common-words.txt")
-	basePath := resourcepath.GetResourcePath()
-	logger.Log(logger.DEBUG, "Using the resource path: " + basePath + "/common-words.txt")
-	file, _ := os.Open(basePath + "/common-words.txt")
+	if len(COMMONWORDS) > 0 {
+		return
+	}
+	logger.Log(logger.INFO, "Loading words from embedded file: resources/word_bank.txt")
+	file, err := wordBankFS.Open("resources/word_bank.txt")
+	if err != nil {
+		logger.Log(logger.ERROR, "Failed to open embedded word bank: "+err.Error())
+		return
+	}
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
@@ -85,7 +92,7 @@ func createLine() ([]string, []string, []int) {
 	// while all chars less than MAXCHARPERLINE
 	for currChars < MAXCHARPERLINE {
 		randomIndex := rand.Intn(len(COMMONWORDS))
-		for (randomIndex == prevIndex) {
+		for randomIndex == prevIndex {
 			randomIndex = rand.Intn(len(COMMONWORDS))
 		}
 		prevIndex = randomIndex

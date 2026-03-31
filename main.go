@@ -15,7 +15,7 @@ import (
 
 var (
 	Build        = "dev"
-	wordPath     = "./resources/common-words.txt"
+	wordPath     = "./resources/word_bank.txt"
 	settingsPath = "./resources/settings.json"
 )
 
@@ -122,7 +122,7 @@ func setup() MainModel {
 
 func main() {
 	if Build == "prod" {
-		wordPath = "/usr/share/bananatype/common-words.txt"
+		wordPath = "/usr/share/bananatype/word_bank.txt"
 		settingsPath = os.Getenv("HOME") + "/.local/state/bananatype/settings.json"
 		logger.InitLogger(os.Getenv("HOME") + "/.local/state/banantype/log.txt")
 	}
