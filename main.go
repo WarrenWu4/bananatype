@@ -3,14 +3,15 @@ package main
 import (
 	analysis "bananas/pkg/analysis"
 	logger "bananas/pkg/logger"
+	"bananas/pkg/progress"
 	settings "bananas/pkg/settings"
-	timer "bananas/pkg/timer"
+	"bananas/pkg/timer"
 	typer "bananas/pkg/typer"
 	"fmt"
-	tea "github.com/charmbracelet/bubbletea"
 	"os"
 	"strings"
-	"time"
+
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 var (
@@ -21,7 +22,7 @@ var (
 
 type MainModel struct {
 	settings settings.SettingsModel
-	timer    timer.TimerModel
+	progress progress.ProgressModel
 	typer    typer.TyperModel
 	analysis analysis.AnalysisModel
 	width    int
@@ -47,30 +48,37 @@ func (m MainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		}
 	case settings.SettingsModel:
-		tea.Println("Settings Updated")
 		m.typer = typer.NewTyper()
-		m.timer = timer.NewTimerModel(time.Second * time.Duration(m.settings.ActiveTime))
-		m.settings.Show = !m.settings.Show
+		m.progress = m.progress.Reset()
+		m.settings.Show = false
 	case analysis.AnalysisModel:
 		m.typer = typer.NewTyper()
-		m.timer = timer.NewTimerModel(time.Second * time.Duration(m.settings.ActiveTime))
+		m.progress.Typer = m.typer
+		m.progress = m.progress.Reset()
+		return m, nil
 	}
 	// local updates that are dependent on which view is active
 	if m.settings.Show { // only update settings when settings show
 		updatedSettings, settingsCmd := m.settings.Update(msg)
 		m.settings = updatedSettings.(settings.SettingsModel)
-		return m, settingsCmd
-	} else if m.timer.Done { // only update analysis when timer is done
+		updatedProgress, progressCmd := m.progress.Update(msg)
+		m.progress = updatedProgress.(progress.ProgressModel)
+		m.progress.Settings = m.settings
+		return m, tea.Batch(settingsCmd, progressCmd)
+	} else if m.progress.Done { // only update analysis when timer is done
 		updatedAnalysis, analysisCmd := m.analysis.Update(msg)
 		m.analysis = updatedAnalysis.(analysis.AnalysisModel)
 		return m, analysisCmd
 	}
 	// otherwise update timer and typer
-	updatedTimer, timerCmd := m.timer.Update(msg)
-	m.timer = updatedTimer.(timer.TimerModel)
+	updatedProgress, progressCmd := m.progress.Update(msg)
+	m.progress = updatedProgress.(progress.ProgressModel)
 	updatedTyper, typerCmd := m.typer.Update(msg)
 	m.typer = updatedTyper.(typer.TyperModel)
-	return m, tea.Batch(timerCmd, typerCmd)
+	m.progress.Typer = m.typer
+	UpdatedTimer, timerCmd := m.progress.Timer.Update(msg)
+	m.progress.Timer = UpdatedTimer.(timer.TimerModel)
+	return m, tea.Batch(progressCmd, typerCmd, timerCmd)
 }
 
 func (m MainModel) View() string {
@@ -80,7 +88,7 @@ func (m MainModel) View() string {
 	// top padding
 	output += strings.Repeat("\n", paddingY)
 	// left padding
-	if m.timer.Done {
+	if m.progress.Done {
 		m.analysis.Time = m.settings.ActiveTime
 		m.analysis.Words = m.typer.TotalWords
 		m.analysis.Correct = m.typer.TotalCorrect
@@ -95,7 +103,7 @@ func (m MainModel) View() string {
 			output += strings.Repeat(" ", paddingX) + line + "\n"
 		}
 	} else {
-		output += strings.Repeat(" ", paddingX) + m.timer.View() + "\n"
+		output += strings.Repeat(" ", paddingX) + m.progress.View() + "\n"
 		outputLines := strings.Split(m.typer.View(), "\n")
 		for i := 0; i < len(outputLines); i++ {
 			output += strings.Repeat(" ", paddingX) + outputLines[i] + "\n"
@@ -107,11 +115,10 @@ func (m MainModel) View() string {
 func setup() MainModel {
 	// initialize main model
 	s := settings.NewSettingsModel()
-	ti := timer.NewTimerModel(time.Second * time.Duration(s.ActiveTime))
 	ty := typer.NewTyper()
 	a := analysis.NewAnalysisModel()
 	return MainModel{
-		timer:    ti,
+		progress: progress.NewProgressModel(s, ty),
 		typer:    ty,
 		analysis: a,
 		settings: s,
