@@ -4,3 +4,6 @@ user_settings.json
 build/
 bananas
 app.log
+
+// local settings file
+resources/settings.json
