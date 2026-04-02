@@ -51,6 +51,7 @@ func (m MainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.typer = typer.NewTyper()
 		m.progress = m.progress.Reset()
 		m.settings.Show = false
+		return m, nil
 	case analysis.AnalysisModel:
 		m.typer = typer.NewTyper()
 		m.progress.Typer = m.typer
@@ -66,6 +67,7 @@ func (m MainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.progress.Settings = m.settings
 		return m, tea.Batch(settingsCmd, progressCmd)
 	} else if m.progress.Done { // only update analysis when timer is done
+		logger.Log(logger.DEBUG, "Updating analysis with message")
 		updatedAnalysis, analysisCmd := m.analysis.Update(msg)
 		m.analysis = updatedAnalysis.(analysis.AnalysisModel)
 		return m, analysisCmd
@@ -89,7 +91,13 @@ func (m MainModel) View() string {
 	output += strings.Repeat("\n", paddingY)
 	// left padding
 	if m.progress.Done {
-		m.analysis.Time = m.settings.ActiveTime
+		switch m.settings.ActiveTyperMode {
+		case "timer":
+			// cleaner way to do this would be to expose timer in progress and get the timer timeout, but this is fine too since active time should always equal timeout
+			m.analysis.Time = float64(m.settings.ActiveTime)
+		case "words":
+			m.analysis.Time = m.progress.DoneTime.Sub(m.progress.StartTime).Seconds()
+		}
 		m.analysis.Words = m.typer.TotalWords
 		m.analysis.Correct = m.typer.TotalCorrect
 		m.analysis.Characters = m.typer.TotalTyped

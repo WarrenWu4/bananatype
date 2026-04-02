@@ -12,10 +12,12 @@ import (
 )
 
 type ProgressModel struct {
-	Settings settings.SettingsModel
-	Typer    typer.TyperModel
-	Timer    timer.TimerModel
-	Done     bool
+	Settings  settings.SettingsModel
+	Typer     typer.TyperModel
+	Timer     timer.TimerModel
+	StartTime time.Time
+	DoneTime  time.Time
+	Done      bool
 }
 
 func NewProgressModel(s settings.SettingsModel, t typer.TyperModel) ProgressModel {
@@ -35,14 +37,23 @@ func (m ProgressModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	// ProgressModel is mostly a view-only model that receives updates
 	// to its child models from the main loop.
 	// send a message when update is complete though
+	switch msg.(type) {
+	case tea.KeyMsg:
+		if m.StartTime.IsZero() {
+			m.StartTime = time.Now()
+		}
+	}
+
 	switch m.Settings.ActiveTyperMode {
 	case "timer":
 		if m.Timer.Done {
 			m.Done = true
+			m.DoneTime = time.Now()
 		}
 	case "words":
 		if m.Typer.TotalWords >= m.Settings.ActiveWords {
 			m.Done = true
+			m.DoneTime = time.Now()
 		}
 	}
 	return m, nil
@@ -61,6 +72,7 @@ func (m ProgressModel) View() string {
 
 func (m ProgressModel) Reset() ProgressModel {
 	m.Done = false
+	m.StartTime = time.Time{}
 	m.Timer = timer.NewTimerModel(time.Second * time.Duration(m.Settings.ActiveTime))
 	return m
 }

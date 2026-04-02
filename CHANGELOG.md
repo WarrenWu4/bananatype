@@ -12,6 +12,7 @@ Dates are in the form: **mm-dd-yyyy**
 
 ### Added
 - Default 10MB file size limit for logger with automatic rotation
+- Added word-based typing test along with timer-based tests
 
 ### Changes 
 - Settings page renamed to "settings"
