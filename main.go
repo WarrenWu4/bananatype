@@ -49,9 +49,9 @@ func (m MainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 	case settings.SettingsModel:
 		m.typer = typer.NewTyper()
-		m.progress = m.progress.Reset()
+		m.progress = progress.NewProgressModel(m.settings, m.typer) 
 		m.settings.Show = false
-		return m, nil
+		return m, nil 
 	case analysis.AnalysisModel:
 		m.typer = typer.NewTyper()
 		m.progress.Typer = m.typer
