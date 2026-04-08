@@ -1,27 +1,37 @@
-# bananas
+# 🍌 BananaType
 
-monkeytype in your terminal
+**monkeytype in your terminal**
 
-**for linux environments**
+## 🚀 Quick Start
 
-## Install 
+Detailed installation instructions in [Installation Docs](docs/installation.md).
 
-### Install Script
+After installation run `bananatype` in your terminal and start typing!
 
-```bash
-git clone https://github.com/hungrymonkeystudio/bananas
-cd scripts
-chmod +x install.sh
-./install.sh
-```
+## 🛠 Features 
 
-## Uninstall
+| Feature | Description | Status |
+|---------|-------------|--------|
+|Timer Mode|Test your typing speed against the clock|✅|
+|Word Mode|Type a set number of words as fast as you can|✅|
+|Typing Progress|View typing progress depending on typing mode|✅|
+|WPM Tracking|Track your words per minute and accuracy over time|✅|
+|Accuracy Tracking|Monitor your typing accuracy with detailed stats|✅|
+|Customizable Settings|Adjust timer duration and word count|✅|
 
-### Uninstall Script
+## 🤝 Contributing
 
-```bash
-git clone https://github.com/hungrymonkeystudio/bananas
-cd scripts
-chmod +x uninstall.sh
-./uninstall.sh
-```
+Contributions are welcome! Please see [Development Docs](docs/development.md) for more info.
+
+## 📖 Documentation
+
+Detailed documentation can be found in the `docs/` directory:
+
+- [**Installation**](docs/installation.md) - Detailed OS-specific setup and dependencies.
+- [**Distribution**](docs/distribution.md) - Build, package, and release process.
+- [**Development**](docs/development.md) - Architecture and contributing guide. (WIP)
+
+
+## 📄 License
+
+[MIT](LICENSE)
