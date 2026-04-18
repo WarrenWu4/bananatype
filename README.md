@@ -30,6 +30,7 @@ Detailed documentation can be found in the `docs/` directory:
 - [**Installation**](docs/installation.md) - Detailed OS-specific setup and dependencies.
 - [**Distribution**](docs/distribution.md) - Build, package, and release process.
 - [**Development**](docs/development.md) - Architecture and contributing guide. (WIP)
+- [**Testing**](docs/testing.md) - Detailed overview on testing strategy, how to run tests, and testing guidelines. 
 
 
 ## 📄 License

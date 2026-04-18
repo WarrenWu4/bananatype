@@ -42,6 +42,10 @@ type TyperModel struct {
 	TotalTyped   int
 }
 
+func (tym TyperModel) GetLines() [][]string {
+	return tym.lines
+}
+
 func loadWordsFromFile() {
 	if len(COMMONWORDS) > 0 {
 		return

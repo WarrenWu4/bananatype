@@ -4,6 +4,11 @@ user_settings.json
 build/
 bananas
 app.log
+test_results
 
 // local settings file
 resources/settings.json
+
+// python scripting
+.venv/
+venv/
