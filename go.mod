@@ -1,4 +1,4 @@
-module bananas
+module bananatype
 
 go 1.23.5
 

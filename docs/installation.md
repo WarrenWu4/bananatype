@@ -42,7 +42,7 @@ These install methods are for if you do not see your OS/distro listed above. It 
 The easiest way to install is via `go install`:
 
 ```bash
-go install github.com/hungrymonkeystudio/bananas@latest
+go install github.com/WarrenWu4/bananatype@latest
 ```
 
 This will download the project and install the binary into your `$GOPATH/bin` folder. Make sure that folder is in your `$PATH`.
@@ -52,9 +52,9 @@ This will download the project and install the binary into your `$GOPATH/bin` fo
 Clone the repository and build from source:
 
 ```bash
-git clone https://github.com/hungrymonkeystudio/bananas
-cd bananas
-go build -o bananas main.go
+git clone https://github.com/WarrenWu4/bananatype
+cd bananatype
+go build -o bananatype main.go
 ```
 
 You can now run `./bananas` or move the binary to your local `/usr/local/bin` directory.

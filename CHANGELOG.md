@@ -10,9 +10,15 @@ Dates are in the form: **mm-dd-yyyy**
 
 ## [Unreleased]
 
+---
+
+## [0.0.5] - 04-19-2026
+
 ### Added
 - Default 10MB file size limit for logger with automatic rotation
 - Added word-based typing test along with timer-based tests
+- Performance testing framework with simulation module 
+- Unit tests for explicit behavior checks on various app states
 
 ### Changes 
 - Settings page renamed to "settings"
@@ -23,7 +29,6 @@ Dates are in the form: **mm-dd-yyyy**
 ### Fixed
 - Prevented duplicate consecutive words from being generated
 - Cleaned up word bank data (removed random periods)
-
 
 ---
 
@@ -64,6 +69,7 @@ Dates are in the form: **mm-dd-yyyy**
 
 ---
 
+[0.0.5]: https://github.com/WarrenWu4/bananas/releases/tag/v0.0.5
 [0.0.4]: https://github.com/WarrenWu4/bananas/releases/tag/v0.0.4
 [0.0.3]: https://github.com/WarrenWu4/bananas/releases/tag/v0.0.3
 [0.0.2]: https://github.com/WarrenWu4/bananas/releases/tag/v0.0.2
