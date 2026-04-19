@@ -21,3 +21,14 @@ To export the data to JSON, add a export flag to the command. Then, use the pyth
 go test -v tests/performance/*.go -export
 python scripts/graph_performance.py 
 ```
+
+## Unit Testing 
+
+Unit tests are written to explicitly test expected behavior when the application is in a certain state. The unit tests are not comprehensive and focus mainly on core logic that is critical to the functionality of the application. Unit tests should also largely focus on edge cases to ensure the application is robust and can handle various unintended states.
+
+To run the unit tests, use the following command (from project root):
+
+```bash
+go test -v tests/unit/*.go
+```
+
