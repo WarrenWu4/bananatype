@@ -1,4 +1,4 @@
-module bananatype
+module github.com/WarrenWu4/bananatype
 
 go 1.23.5
 
