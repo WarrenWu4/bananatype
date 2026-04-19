@@ -81,12 +81,12 @@ type ExportData struct {
 func simulate(inputs []string, delayMs int, testTypingModel TestTypingModel, collector Collector) []DataPoint {
 	collector.SetChannel(testTypingModel.frameChan)
 	collector.Reset()
-	p := tea.NewProgram(testTypingModel, tea.WithInput(nil), tea.WithoutRenderer())
+	p := tea.NewProgram(testTypingModel, tea.WithInput(nil), tea.WithoutRenderer(), tea.WithFPS(60))
 	data := []DataPoint{}
 	stopMonitoring := make(chan bool)
 	// start monitoring in goroutine
 	go func() {
-		ticker := time.NewTicker(50 * time.Millisecond)
+		ticker := time.NewTicker(1 * time.Second)
 		for {
 			select {
 			case <-stopMonitoring:

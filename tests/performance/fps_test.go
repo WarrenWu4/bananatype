@@ -9,26 +9,40 @@ import (
 )
 
 type FPSCollector struct {
-	frameChan chan bool
-	count     int
-	mu        sync.Mutex
+	frameChan   chan bool
+	count       int
+	mu          sync.Mutex
+	lastCollect time.Time
 }
 
 func (c *FPSCollector) Name() string { return "Framerate" }
 func (c *FPSCollector) Unit() string { return "FPS" }
+
 func (c *FPSCollector) Collect(t time.Time) float64 {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	// This is called by the ticker. Since ticker is 50ms, we scale up to 1s.
-	// But actually, we want to measure frames since last collect.
-	fps := float64(c.count) / 0.5 // ticker is 500ms
+
+	elapsed := t.Sub(c.lastCollect).Seconds()
+	var fps float64
+	if elapsed > 0 {
+		fps = float64(c.count) / elapsed
+	}
+
 	c.count = 0
+	c.lastCollect = t
 	return fps
 }
+
 func (c *FPSCollector) SetChannel(ch chan bool) {
 	c.frameChan = ch
 }
+
 func (c *FPSCollector) Reset() {
+	c.mu.Lock()
+	c.count = 0
+	c.lastCollect = time.Now()
+	c.mu.Unlock()
+
 	go func() {
 		for range c.frameChan {
 			c.mu.Lock()
