@@ -12,6 +12,13 @@ Dates are in the form: **mm-dd-yyyy**
 
 ---
 
+## [0.0.6] - 04-19-2026
+
+### Fixed
+- Cleaned up go mod files
+
+---
+
 ## [0.0.5] - 04-19-2026
 
 ### Added
