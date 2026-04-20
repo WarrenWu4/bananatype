@@ -1,8 +1,8 @@
 package typer
 
 import (
-	colors "bananas/pkg/colors"
-	logger "bananas/pkg/logger"
+	colors "github.com/WarrenWu4/bananatype/pkg/colors"
+	logger "github.com/WarrenWu4/bananatype/pkg/logger"
 	"bufio"
 	"embed"
 	"math"

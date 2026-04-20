@@ -1,7 +1,7 @@
 package unit
 
 import (
-	"bananas/pkg/timer"
+	"github.com/WarrenWu4/bananatype/pkg/timer"
 	"testing"
 	"time"
 

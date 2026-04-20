@@ -1,11 +1,11 @@
-// setting screen for bananas
+// setting screen for github.com/WarrenWu4/bananatype
 // core functionality: change time control
 
 package settings
 
 import (
-	colors "bananas/pkg/colors"
-	resourcepath "bananas/pkg/resourcepath"
+	colors "github.com/WarrenWu4/bananatype/pkg/colors"
+	resourcepath "github.com/WarrenWu4/bananatype/pkg/resourcepath"
 	"encoding/json"
 	"os"
 	"slices"

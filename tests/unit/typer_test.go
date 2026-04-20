@@ -1,7 +1,7 @@
 package unit
 
 import (
-	"bananas/pkg/typer"
+	"github.com/WarrenWu4/bananatype/pkg/typer"
 	"testing"
 
 	tea "github.com/charmbracelet/bubbletea"

@@ -1,15 +1,15 @@
 // separate package that contains the root model
-// separated from main.go for easier testing 
+// separated from main.go for easier testing
 package coordinator
 
 import (
-	analysis "bananas/pkg/analysis"
-	logger "bananas/pkg/logger"
-	progress "bananas/pkg/progress"
-	settings "bananas/pkg/settings"
-	typer "bananas/pkg/typer"
+	analysis "github.com/WarrenWu4/bananatype/pkg/analysis"
+	logger "github.com/WarrenWu4/bananatype/pkg/logger"
+	progress "github.com/WarrenWu4/bananatype/pkg/progress"
+	settings "github.com/WarrenWu4/bananatype/pkg/settings"
+	timer "github.com/WarrenWu4/bananatype/pkg/timer"
+	typer "github.com/WarrenWu4/bananatype/pkg/typer"
 	tea "github.com/charmbracelet/bubbletea"
-	timer "bananas/pkg/timer"
 	"strings"
 )
 

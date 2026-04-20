@@ -3,7 +3,7 @@
 package analysis
 
 import (
-	colors "bananas/pkg/colors"
+	colors "github.com/WarrenWu4/bananatype/pkg/colors"
 	"fmt"
 	tea "github.com/charmbracelet/bubbletea"
 )

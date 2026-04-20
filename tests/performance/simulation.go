@@ -3,7 +3,7 @@
 package performance
 
 import (
-	coordinator "bananas/pkg/coordinator"
+	coordinator "github.com/WarrenWu4/bananatype/pkg/coordinator"
 	"encoding/json"
 	"flag"
 	"fmt"

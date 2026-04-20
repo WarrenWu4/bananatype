@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bananas/pkg/coordinator"
-	logger "bananas/pkg/logger"
+	"github.com/WarrenWu4/bananatype/pkg/coordinator"
+	logger "github.com/WarrenWu4/bananatype/pkg/logger"
 	"fmt"
 	"os"
 

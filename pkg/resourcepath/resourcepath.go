@@ -3,7 +3,7 @@
 package resourcepath
 
 import (
-	"bananas/pkg/logger"
+	"github.com/WarrenWu4/bananatype/pkg/logger"
 )
 
 var (

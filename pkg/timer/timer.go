@@ -3,7 +3,7 @@ package timer
 import (
 	"strconv"
 	"time"
-	colors "bananas/pkg/colors"
+	colors "github.com/WarrenWu4/bananatype/pkg/colors"
 	bubbleTimer "github.com/charmbracelet/bubbles/timer"
 	tea "github.com/charmbracelet/bubbletea"
 )

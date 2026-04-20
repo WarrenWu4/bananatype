@@ -1,10 +1,10 @@
 package progress
 
 import (
-	colors "bananas/pkg/colors"
-	settings "bananas/pkg/settings"
-	timer "bananas/pkg/timer"
-	typer "bananas/pkg/typer"
+	colors "github.com/WarrenWu4/bananatype/pkg/colors"
+	settings "github.com/WarrenWu4/bananatype/pkg/settings"
+	timer "github.com/WarrenWu4/bananatype/pkg/timer"
+	typer "github.com/WarrenWu4/bananatype/pkg/typer"
 	"fmt"
 	"time"
 

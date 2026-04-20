@@ -1,7 +1,7 @@
 package unit
 
 import (
-	"bananas/pkg/analysis"
+	"github.com/WarrenWu4/bananatype/pkg/analysis"
 	"strings"
 	"testing"
 )
